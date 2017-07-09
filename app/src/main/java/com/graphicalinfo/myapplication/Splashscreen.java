@@ -2,9 +2,11 @@ package com.graphicalinfo.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,7 +20,6 @@ import java.util.Random;
  */
 
 public class Splashscreen extends Activity {
-
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
@@ -29,7 +30,16 @@ public class Splashscreen extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-        StartAnimations();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getBoolean("first_time", true)) {
+            StartAnimations();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("first_time", false);
+            editor.commit();
+        }else {
+            startCheck();
+        }
+
     }
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
@@ -48,11 +58,17 @@ public class Splashscreen extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(Splashscreen.this, MainActivity.class));
+                startCheck();
             }
         }, 3000);
 
     }
+
+    private void startCheck(){
+        startActivity(new Intent(Splashscreen.this, MainActivity.class));
+        finish();
+    }
+
 
 
 }
