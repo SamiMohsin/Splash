@@ -3,9 +3,7 @@ package com.graphicalinfo.libs;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-import me.anwarshahriar.calligrapher.Calligrapher;
 
 /**
  * Created by ayoob on 09/07/2017.
@@ -29,6 +27,7 @@ public class TextArtRTL extends android.support.v7.widget.AppCompatTextView
     }
 
     private void init(Context context) {
-      Typeface typeface = FontCache.getTypeface(context, "fonts/");
+      Typeface typeface = FontCache.getTypeface(context, "fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf");
+        setTypeface(typeface);
     }
 }

@@ -13,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.graphicalinfo.libs.TextArtRTL;
+
 import java.util.Random;
 
 /**
@@ -53,9 +55,12 @@ public class Splashscreen extends Activity {
 
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
+        TextArtRTL textArtRTL = (TextArtRTL) findViewById(R.id.logo_text);
         ImageView iv = (ImageView) findViewById(R.id.logo);
         iv.clearAnimation();
         iv.startAnimation(anim);
+        textArtRTL.clearAnimation();
+        textArtRTL.startAnimation(anim);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
